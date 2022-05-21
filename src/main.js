@@ -2,6 +2,25 @@
 	const width = window.innerWidth;
 	const height = window.innerHeight;
 
+	const gui = new dat.GUI();
+
+	const sphere = {
+		positionX: 0,
+		positionY: 0,
+		positionZ: 0,
+		rotationX: 0,
+		rotationY: 0,
+		rotationZ: 0,
+	};
+
+	gui.add(sphere, 'positionX').min(-1).max(1).step(0.01);
+	gui.add(sphere, 'positionY').min(-1).max(1).step(0.01);
+	gui.add(sphere, 'positionZ').min(-5).max(5).step(0.1);
+
+	gui.add(sphere, 'rotationX').min(-0.02).max(0.02).step(0.001);
+	gui.add(sphere, 'rotationY').min(-0.02).max(0.02).step(0.001);
+	gui.add(sphere, 'rotationZ').min(-0.02).max(0.02).step(0.001);
+
 	const titleText = document.createElement('div');
 	titleText.className = 'title';
 	titleText.innerText = 'WEBGL + TreeJS';
@@ -32,9 +51,12 @@
 	function animate() {
 		requestAnimationFrame( animate );
 
-		mesh.rotation.x += 0.01;
-		mesh.rotation.y += 0.02;
-		mesh.rotation.z += 0.01;
+		mesh.position.x += sphere.positionX;
+		mesh.position.y += sphere.positionY;
+		mesh.position.z += sphere.positionZ;
+		mesh.rotation.x += sphere.rotationX;
+		mesh.rotation.y += sphere.rotationY;
+		mesh.rotation.z += sphere.rotationZ;
 
 		renderer.render( scene, camera );
 	}
