@@ -35,28 +35,72 @@
 
 	const camera = new THREE.PerspectiveCamera( 45, width / height, 0.1, 5000 );
 
-	camera.position.set(0,0, 1000);
+	camera.position.set(150,0, 1000);
 
 	const light = new THREE.AmbientLight( 0xffffff );
 	scene.add(light);
 
-	const geometryLight = new THREE.SphereGeometry( 150, 150, 20, 20 ); // Ширина, высота, количество клеточек на плоскости
-	const material = new THREE.MeshBasicMaterial({
+	const geometrySphere = new THREE.SphereGeometry( 150, 150, 20, 20 ); // Ширина, высота, количество клеточек на плоскости
+	const materialSphere = new THREE.MeshBasicMaterial({
 		color: 0x00ff00,
 		wireframe: true
 	});
-	const mesh = new THREE.Mesh(geometryLight, material);
-	scene.add(mesh);
+	const meshSphere = new THREE.Mesh(geometrySphere, materialSphere);
+	meshSphere.position.y = -150;
+	scene.add(meshSphere);
+
+	const geometrySphereTX = new THREE.SphereGeometry( 150, 150, 20, 20 );
+
+	let sphereTexture = new THREE.Texture();
+	let sphereLoader = new THREE.ImageLoader();
+
+	sphereLoader.load(
+			'./images/textures/planet.jpg',
+			( image ) => {
+				sphereTexture.image = image;
+				sphereTexture.needsUpdate = true;
+			}
+	);
+
+	const materialSphereTX = new THREE.MeshBasicMaterial({ map: sphereTexture, overdraw: true });
+	const meshSphereTX = new THREE.Mesh(geometrySphereTX, materialSphereTX);
+	meshSphereTX.position.y = 200;
+	scene.add(meshSphereTX);
+
+	const geometryCube = new THREE.BoxGeometry(150, 150, 150);
+
+	let cubeTexture = new THREE.Texture();
+	let loader = new THREE.ImageLoader();
+
+	loader.load(
+			'./images/textures/box.jpg',
+			 ( image ) => {
+				cubeTexture.image = image;
+				cubeTexture.needsUpdate = true;
+			}
+	);
+
+	const materialCube = new THREE.MeshBasicMaterial({ map: cubeTexture, overdraw: true });
+	const meshCube = new THREE.Mesh(geometryCube, materialCube);
+	meshCube.position.x = 150 * 2.5;
+	meshCube.rotation.y = width / 3;
+	scene.add(meshCube);
 
 	function animate() {
 		requestAnimationFrame( animate );
 
-		mesh.position.x += sphere.positionX;
-		mesh.position.y += sphere.positionY;
-		mesh.position.z += sphere.positionZ;
-		mesh.rotation.x += sphere.rotationX;
-		mesh.rotation.y += sphere.rotationY;
-		mesh.rotation.z += sphere.rotationZ;
+		meshCube.rotation.z += 0.01;
+
+		meshSphereTX.rotation.x += 0.001;
+		meshSphereTX.rotation.y += 0.001;
+		meshSphereTX.rotation.z += 0.001;
+
+		meshSphere.position.x += sphere.positionX;
+		meshSphere.position.y += sphere.positionY;
+		meshSphere.position.z += sphere.positionZ;
+		meshSphere.rotation.x += sphere.rotationX;
+		meshSphere.rotation.y += sphere.rotationY;
+		meshSphere.rotation.z += sphere.rotationZ;
 
 		renderer.render( scene, camera );
 	}
