@@ -1,0 +1,77 @@
+@import './fonts.css';
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'a_PlakatCmplRl&Bt';
+}
+
+.title {
+    padding: 10px 0;
+    text-align: center;
+}
+
+.container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.90);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.audio {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    width: 50vw;
+    height: 30px;
+    max-width: 350px;
+    min-width: 100px;
+    cursor: pointer;
+}
+
+.message {
+    padding: 20px 50px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    background: #163d3e;
+    color: aqua;
+    font-size: 2em;
+    transition: 0.6s;
+    text-decoration: none;
+}
+
+.message:hover {
+    background: #194e50;
+}
+
+.anim {
+    animation: redirect 5s infinite ease-in;
+    cursor: pointer;
+}
+
+@keyframes redirect {
+    0% {
+        color: #aeec6d;
+    }
+    25% {
+        color: #00ffb7;
+    }
+    50% {
+        color: #0022ff;
+    }
+    75% {
+        color: #02ff41;
+    }
+    100% {
+        color: #ffca00;
+    }
+}
